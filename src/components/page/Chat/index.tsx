@@ -6,23 +6,26 @@ import React from "react";
 
 export const Chat = () => {
   return (
-    <Box component='main' sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100dvh',
-      width: '100vhw'
-    }}>
-      <Box sx={{ width: '100%' }}>
+    <Box
+      component="main"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100dvh",
+        width: "100vhw",
+      }}
+    >
+      <Box sx={{ width: "100%" }}>
         <Header />
       </Box>
-      <Box sx={{flexGrow: 1, width: '100%'}}>
+      <Box sx={{ flexGrow: 1, width: "100%" }}>
         <ChatMain />
       </Box>
-      <Box sx={{width: '100%'}}>
+      <Box sx={{ width: "100%" }}>
         <ChatForm />
       </Box>
     </Box>
   );
-}
+};
