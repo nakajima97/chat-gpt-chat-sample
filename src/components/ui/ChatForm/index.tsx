@@ -1,6 +1,13 @@
 import { Box, Button, TextField } from "@mui/material";
+import { FC } from "react";
 
-export const ChatForm = () => {
+type Props = {
+  message: string;
+  setMessage: (value: string) => void;
+  sendMessage: () => void;
+}
+
+export const ChatForm: FC<Props> = ({message, setMessage, sendMessage}) => {
   return (
     <Box
       sx={{
@@ -13,9 +20,11 @@ export const ChatForm = () => {
     >
       <TextField
         sx={{ flexGrow: 1 }}
-        placeholder="何か聞きたいことhあありますか？"
+        placeholder="何か聞きたいことはありますか？"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
       />
-      <Button variant="contained">送信</Button>
+      <Button variant="contained" onClick={sendMessage}>送信</Button>
     </Box>
   );
 };
