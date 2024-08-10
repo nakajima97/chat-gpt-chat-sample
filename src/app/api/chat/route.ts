@@ -11,7 +11,7 @@ export const POST = async (request: NextRequest) => {
   // completion: 完了、完成
   const completions = await openai.chat.completions.create({
     model: 'gpt-4o-2024-05-13',
-    messages: [{ role: 'user', content: '200文字程度の適当な文章を作成してください' }],
+    messages: [{ role: 'user', content: '1000文字程度の適当な文章を作成してください' }],
     stream: true
   })
 
@@ -24,19 +24,24 @@ export const POST = async (request: NextRequest) => {
   const writer = stream.writable.getWriter();
   const encoder = new TextEncoder();
 
-  while (true) {
-    const { done, value } = await reader.read();
+  // 先にレスポンスを返すために即時関数で非同期実行する
+  (async () => {
+    while (true) {
+      const { done, value } = await reader.read();
 
-    if (done) {
-      break;
+      if (done) {
+        break;
+      }
+
+      const decodedValue = decoder.decode(value);
+      const response = encoder.encode(`data: ${decodedValue}\n\n`);
+      writer.write(response)
+
+      console.log({ response });
     }
 
-    const decodedValue = decoder.decode(value);
-    const response = encoder.encode(`data: ${decodedValue}\n\n`);
-    writer.write(response)
-  }
-
-  writer.close();
+    writer.close();
+  })();
 
   return new NextResponse(stream.readable, {
     status: 200,
