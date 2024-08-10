@@ -17,20 +17,22 @@ export const Chat = () => {
   const sendMessage = async () => {
     if (message === "") return;
 
-    // 会話履歴の更新
-    setChatHistories((prev) => [
-      ...prev,
+    const newChatHistories: ChatHistories = [
+      ...chatHistories,
       {
-        id: prev[prev.length - 1]?.id + 1 || 0,
-        message: message,
+        id: chatHistories[chatHistories.length - 1]?.id + 1 || 0,
+        content: message,
         role: "user",
       },
-    ]);
+    ]
+
+    // 会話履歴の更新
+    setChatHistories(newChatHistories);
 
     // APIを叩いてbotの返答を取得
     const response = await fetch("/api/chat", {
       method: "POST",
-      body: JSON.stringify({ messages: [{ role: "user", content: message }] }),
+      body: JSON.stringify(newChatHistories),
     });
 
     const reader = response.body?.getReader();
@@ -42,8 +44,8 @@ export const Chat = () => {
       ...prev,
       {
         id: prev[prev.length - 1]?.id + 1 || 0,
-        message: "",
-        role: "bot",
+        content: "",
+        role: "assistant",
       },
     ]);
 
@@ -70,8 +72,8 @@ export const Chat = () => {
               if (index === lastIndex) {
                 return {
                   id: chatHistory.id,
-                  message: chatHistory.message + text,
-                  role: "bot",
+                  content: chatHistory.content + text,
+                  role: "assistant",
                 };
               }
               return chatHistory

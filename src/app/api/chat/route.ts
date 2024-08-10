@@ -6,12 +6,12 @@ const openai = new OpenAI({
 });
 
 export const POST = async (request: NextRequest) => {
-  // const { messages } = request.json();
+  const messages = await request.json();
 
   // completion: 完了、完成
   const completions = await openai.chat.completions.create({
     model: 'gpt-4o-2024-05-13',
-    messages: [{ role: 'user', content: '1000文字程度の適当な文章を作成してください' }],
+    messages,
     stream: true
   })
 
@@ -36,8 +36,6 @@ export const POST = async (request: NextRequest) => {
       const decodedValue = decoder.decode(value);
       const response = encoder.encode(`data: ${decodedValue}\n\n`);
       writer.write(response)
-
-      console.log({ response });
     }
 
     writer.close();

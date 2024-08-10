@@ -1,8 +1,8 @@
-export type Role = 'user' | 'bot';
+export type Role = 'user' | 'assistant';
 
 export type ChatHistory = {
   id: number;
-  message: string;
+  content: string;
   role: Role;
 };
 

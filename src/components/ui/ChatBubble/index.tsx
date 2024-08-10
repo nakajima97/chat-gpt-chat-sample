@@ -13,12 +13,12 @@ type Props = {
 export const ChatBubble: React.FC<Props> = ({ type, message }) => {
   const generateBackgroundColor = () => {
     if (type === "user") return "#afeeee";
-    if (type === "bot") return "#d3d3d3";
+    if (type === "assistant") return "#d3d3d3";
   };
 
   const generateJustifyContent = () => {
     if (type === "user") return "end";
-    if (type === "bot") return "start";
+    if (type === "assistant") return "start";
   };
 
   return (
