@@ -20,7 +20,7 @@ export const ChatForm: FC<Props> = ({message, setMessage, sendMessage}) => {
     >
       <TextField
         sx={{ flexGrow: 1 }}
-        placeholder="何か聞きたいことhあありますか？"
+        placeholder="何か聞きたいことはありますか？"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
