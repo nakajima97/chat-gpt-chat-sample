@@ -1,17 +1,16 @@
 "use client";
 
+import { Role } from "@/types";
 import { useTheme } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
 type Props = {
-  type: "user" | "bot";
+  type: Role;
   message: string;
 };
 
 export const ChatBubble: React.FC<Props> = ({ type, message }) => {
-  const theme = useTheme();
-
   const generateBackgroundColor = () => {
     if (type === "user") return "#afeeee";
     if (type === "bot") return "#d3d3d3";
@@ -28,6 +27,7 @@ export const ChatBubble: React.FC<Props> = ({ type, message }) => {
         width: "100%",
         display: "flex",
         justifyContent: generateJustifyContent(),
+        margin: "8px",
       }}
     >
       <Box
