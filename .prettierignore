@@ -1,0 +1,10 @@
+*.yaml
+*.yml
+*.md
+
+.eslintrc.json
+.prettier.json
+jest.config.ts
+package.json
+src/app/page.module.css
+src/stories/*
